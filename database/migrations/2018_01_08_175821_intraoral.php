@@ -42,7 +42,7 @@ class Intraoral extends Migration
             $table->integer('idRendimiento')->unsigned();
             $table->integer('idDosisPaciente')->unsigned();
             $table->integer('idEquipoMedicion')->unsigned();
-            $table->integer('codPersonal')->unsigned();
+            $table->integer('idPersonal')->unsigned();
         });
 
         Schema::table('intraoral', function ($table) {
@@ -54,7 +54,7 @@ class Intraoral extends Migration
             $table->foreign('idRendimiento')->references('codRendimiento')->on('rendimiento');
             $table->foreign('idDosisPaciente')->references('codDosisPaciente')->on('dosispaciente');
             $table->foreign('idEquipoMedicion')->references('codEquipoMedicion')->on('equipomedicion');
-            $table->foreign('codPersonal')->references('idPersonal')->on('personal');
+            $table->foreign('idPersonal')->references('codPersonal')->on('personal');
         });
     }
 
