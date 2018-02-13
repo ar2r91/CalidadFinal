@@ -270,4 +270,28 @@ class medicion
         }
         return $medicionbd;
     }
+
+    public function buscarMedicion()
+    {
+        try {
+            $medicionbd = DB::table('equipomedicion')->where('estado', '=', 1)->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'buscarMedicion/medicion');
+            return false;
+        }
+        return $medicionbd;
+    }
+
+    public function buscarMedicionSerie($serie)
+    {
+        try {
+            $medicionbd = DB::table('equipomedicion')->where('serie', '=', $serie)->where('estado', '=', 1)->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarMedicionModelo/medicion');
+            return false;
+        }
+        return $medicionbd;
+    }
 }

@@ -89,7 +89,8 @@ Route::get('/MedicionCargar/{codEquipoMedicion}', 'medicionController@cargarMedi
 Route::get('/MedicionEditado/{codEquipoMedicion}', 'medicionController@editarMedicion');
 Route::get('/MedicionEliminar/{codEquipoMedicion}', 'medicionController@eliminarMedicion');
 
-Route::get('/buscarMaquinaMedicion', array('as' => 'buscarMaquinaMedicion', 'uses' => 'medicionController@buscarEquipoMedicion'));
+Route::get('/buscarEquipoMedicion', 'medicionController@buscarEquipoMedicion');
+Route::get('buscarEquipoMedicionSerie', 'medicionController@buscarEquipoMedicionSerie');
 
 
 //////////////////////////////////////////////////RXGENERAL/////////////////////////////////////////////////////////////

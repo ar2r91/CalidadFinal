@@ -313,10 +313,19 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">DATOS DEL EQUIPO DE MEDICION</div>
                     <div class="panel-body">
+                        <div class=" row ">
+                            <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
+                                <a href="#" class="btn btn-primary" data-toggle="modal" onclick="listarM()"
+                                   id="equiporx"
+                                   data-target="#myModal2">Buscar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Serie:</span>
-                                <input class="form-control input-sm" name="serie"
+                                <input class="form-control input-sm" name="serie" readonly
                                        autocomplete="off" placeholder="Ejem: Serie" required id="serie">
                             </div>
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
@@ -1039,7 +1048,7 @@
             </form>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Modal Equipo Rayos X -->
     <div id="myModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
@@ -1056,6 +1065,37 @@
                             <th>equipo</th>
                             <th>tipo1</th>
                             <th>tipo2</th>
+                            <th>Opcion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Equipo de Medicion -->
+    <div id="myModal2" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <table id="example2" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>serie</th>
+                            <th>tipo</th>
+                            <th>marca</th>
+                            <th>modelo</th>
+                            <th>fecha</th>
                             <th>Opcion</th>
                         </tr>
                         </thead>
@@ -1123,6 +1163,50 @@
 
         function cerrar() {
             $('#myModal').modal('hide');
+        }
+    </script>
+    <script>
+        function listarM() {
+            $.ajax({
+                type: 'get',
+                url: 'buscarEquipoMedicion',
+                dataType: 'json',
+                success: function (result) {
+                    var table = $('#example2').DataTable({
+                        "destroy": true,
+                        "data": result,
+                        "columns": [
+                            {"data": "serie"},
+                            {"data": "tipo"},
+                            {"data": "marca"},
+                            {"data": "modelo"},
+                            {"data": "fecha"},
+                            {"defaultContent": "<button type=\"button\" class=\"btn btn-success glyphicon glyphicon-ok\" onclick='cerrar2()'>Añadir</button>"}
+                        ]
+                    });
+
+                    $('#example2 tbody').on('click', 'button', function () {
+                        var data = table.row($(this).parents('tr')).data();
+                        $.ajax({
+                            type: 'get',
+                            url: '/buscarEquipoMedicionSerie',
+                            dataType: 'json',
+                            data: {serie: data.serie},
+                            success: function (result) {
+                                $('#serie').val(result[0]);
+                                $('#tipo').val(result[1]);
+                                $('#marca').val(result[2]);
+                                $('#modelo').val(result[3]);
+                                $('#fechacalibracion').val(result[4]);
+                            }
+                        });
+                    });
+                }
+            });
+        }
+
+        function cerrar2() {
+            $('#myModal2').modal('hide');
         }
     </script>
 @stop

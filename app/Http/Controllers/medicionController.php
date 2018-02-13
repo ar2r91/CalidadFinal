@@ -105,20 +105,27 @@ class medicionController extends Controller
             return view('Administrador/Medicion/buscar')->with(['medicion' => $med, 'txt' => $request->text, 'select' => $request->select]);
     }
 
-    public function buscarEquipoMedicion(Request $request)
+    public function buscarEquipoMedicion()
+    {
+        $medicion = new medicion();
+        $med = $medicion->buscarMedicion();
+
+        return response()->json($med);
+    }
+
+    public function buscarEquipoMedicionSerie(Request $request)
     {
         $dato = array();
         $medicion = new medicion();
 
-        $med = $medicion->consultarEquipoMedicion($request->serie);
+        $med = $medicion->buscarMedicionSerie($request->serie);
 
         foreach ($med as $m) {
-            $dato[0] = $m->codEquipoMedicion;
-            $dato[1] = $m->serie;
-            $dato[2] = $m->tipo;
-            $dato[3] = $m->marca;
-            $dato[4] = $m->modelo;
-            $dato[5] = $m->fecha;
+            $dato[0] = $m->serie;
+            $dato[1] = $m->tipo;
+            $dato[2] = $m->marca;
+            $dato[3] = $m->modelo;
+            $dato[4] = $m->fecha;
         }
         return response()->json($dato);
     }
