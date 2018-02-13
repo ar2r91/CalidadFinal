@@ -38,17 +38,17 @@ class personalController extends Controller
         $personal->setDni($request->dni);
         $personal->setNombres($request->nombres);
         $personal->setApellidos($request->apellidos);
-        $personal->setCuenta($request->cuentaAgregar);
-        $personal->setPassword($request->contraseñaAgregar);
-        $personal->setTipoCuenta($request->tipocuenta);
+        $personal->setCuenta($request->cuenta);
+        $personal->setPassword($request->password);
+        $personal->setTipoCuenta('Administrador');
         $personal->setCodigoPersonal($request->codigoPersonal);
         $personal->setCorreo($request->correo);
         $p = $personal->editarPersonal($codPersonal);//SQL, actualizar los datos del personal
         if ($valueA == 'Administrador') {
             if ($p == true) {
-                return redirect('/admBuscarPersonal')->with('true', 'Personal ' . $request->nombres . 'fue editado con exito');
+                return redirect('/admBuscarPersonal')->with('true', 'Personal ' . $request->nombres . ' fue editado con exito');
             } else {
-                return redirect('/admBuscarPersonal')->with('false', 'Personal ' . $request->nombres . 'no fue editado con exito');
+                return redirect('/admBuscarPersonal')->with('false', 'Personal ' . $request->nombres . ' no fue editado con exito');
             }
         }
     }
