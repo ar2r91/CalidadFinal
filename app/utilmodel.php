@@ -14,17 +14,15 @@ class utilmodel
     private $funcion;
     private $codPersonal;
 
-
     /**
      * utilmodel constructor.
      */
     public function __construct()
     {
-
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function getMensaje()
     {
@@ -32,11 +30,31 @@ class utilmodel
     }
 
     /**
-     * @param array $mensaje
+     * @param mixed $mensaje
+     * @return utilmodel
      */
     public function setMensaje($mensaje)
     {
         $this->mensaje = $mensaje;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFuncion()
+    {
+        return $this->funcion;
+    }
+
+    /**
+     * @param mixed $funcion
+     * @return utilmodel
+     */
+    public function setFuncion($funcion)
+    {
+        $this->funcion = $funcion;
+        return $this;
     }
 
     /**
@@ -57,21 +75,7 @@ class utilmodel
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFuncion()
-    {
-        return $this->funcion;
-    }
-
-    /**
-     * @param mixed $funcion
-     */
-    public function setFuncion($funcion)
-    {
-        $this->funcion = $funcion;
-    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function insertarError()
     {

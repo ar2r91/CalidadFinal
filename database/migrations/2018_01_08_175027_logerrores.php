@@ -19,7 +19,7 @@ class Logerrores extends Migration
 
             $table->increments('idLogErrores')->unique();
             $table->timestamp('fechaRegistro');
-            $table->string('mensaje');
+            $table->text('mensaje');
             $table->string('funcion');
 
             $table->integer('idPersonal')->unsigned();

@@ -29,7 +29,7 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
-            <form name="form" action="{{url('/PersonalRegistrado')}}" role="Form" method="POST" class="Horizontal">
+            <form name="form" action="{{url('PersonalRegistrado')}}" role="Form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 <div class="panel panel-primary">
                     <div class="panel-heading">Datos Personal</div>
@@ -38,21 +38,19 @@
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">DNI:</span>
                                 <input class="form-control input-sm" name="dni"
-                                       placeholder="Ejm: 12345678" id="dni"
-                                       onchange="validarNombre('','')">
+                                       placeholder="Ejm: 12345678" id="dni">
                                 <span style="color: red" class=" control-label" id=""> </span>
                             </div>
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Nombres:</span>
                                 <input class="form-control input-sm" name="nombres" id="nombres"
-                                       autocomplete="off" onchange="validarRUC('','')"
-                                       placeholder="Ejm: Jose Luis">
+                                       autocomplete="off" placeholder="Ejm: Jose Luis">
                                 <span style="color: red" class=" control-label" id=""> </span>
                             </div>
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Apellidos:</span>
                                 <input class="form-control input-sm" name="apellidos" id="apellidos"
-                                       autocomplete="off" onchange="validarNumeros('','')"
+                                       autocomplete="off"
                                        placeholder="Ejm: Sagastegui Lescano">
                                 <span style="color: red" class=" control-label" id=""> </span>
                             </div>
@@ -60,7 +58,7 @@
                                 <span class="control-label">E-mail:</span>
                                 <input class="form-control input-sm" name="correo" type="email" id="correo"
                                        placeholder="correo@gmail.com"
-                                       autocomplete="off" onchange="validarCorreo('','')" required>
+                                       autocomplete="off" required>
                                 <span style="color: red" class=" control-label" id=""> </span>
                             </div>
                         </div>
@@ -73,27 +71,26 @@
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Codigo Personal:</span>
                                 <input class="form-control input-sm" name="codigoPersonal"
-                                       placeholder="Ejm: 1" id="codigoPersonal"
-                                       onchange="validarNombre('','')">
+                                       placeholder="Ejm: 1" id="codigoPersonal">
                                 <span style="color: red" class=" control-label" id=""> </span>
                             </div>
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Cuenta:</span>
                                 <input class="form-control input-sm" name="cuenta" id="cuenta"
-                                       autocomplete="off" onchange="validarRUC('','')"
+                                       autocomplete="off"
                                        placeholder="Ejm: usuario">
                                 <span style="color: red" class=" control-label" id=""> </span>
                             </div>
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Contraseña:</span>
                                 <input class="form-control input-sm" name="password" id="password" type="password"
-                                       autocomplete="off" onchange="validarNumeros('','')" placeholder="*****">
+                                       autocomplete="off"  placeholder="*****">
                                 <span style="color: red" class=" control-label" id=""> </span>
                             </div>
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Repita contraseña:</span>
                                 <input class="form-control input-sm" name="password2" id="password2"
-                                       autocomplete="off" onchange="validarNumeros('','')"
+                                       autocomplete="off"
                                        type="password" placeholder="*****">
                                 <span style="color: red" class=" control-label" id=""> </span>
                             </div>
