@@ -124,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
+            <!--<div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseRXG">
@@ -151,7 +151,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -180,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
+            <!--<div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseDentalPC">
@@ -347,7 +347,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     @else
