@@ -8,12 +8,6 @@
 
 namespace App;
 
-
-use App\Http\Controllers\util;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use PDOException;
-
 class componentea extends componentepadre
 {
     private $tipo3;

@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\calidadhaz;
+use App\dosiscliente;
 use App\intraoral;
+use App\paramgeometrico;
+use App\rendimiento;
+use App\tiempoexposicion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -186,18 +191,18 @@ class intraoralController extends Controller
         }
     }
 
-    public function eliminarIntraoral($codParamGeometricos, $codCalidadHaz, $codTiempoExposicion, $codRendimiento, $codDosisPaciente, $codDental)
+    public function eliminarIntraoral($codParamGeometricos, $codCalidadHaz, $codTiempoExposicion, $codRendimiento, $codDosisPaciente, $codIntraoral)
     {
         $valueA = Session::get('tipoCuentaA');
         $intra = null;
         $intraoral = new intraoral();
-        $intra = $intraoral->eliminarIntraoral($codParamGeometricos, $codCalidadHaz, $codTiempoExposicion, $codRendimiento, $codDosisPaciente, $codDental);
+        $intra = $intraoral->eliminarIntraoral($codParamGeometricos, $codCalidadHaz, $codTiempoExposicion, $codRendimiento, $codDosisPaciente, $codIntraoral);
 
         if ($valueA == 'Administrador') {
             if ($intra == true) {
-                return redirect('/admBuscarDental')->with('true', 'El registro # ' . $codDental . ' fue eliminada con exito');
+                    return redirect('/admBuscarIntraoral')->with('true', 'El registro # ' . $codIntraoral . ' fue eliminada con exito');
             } else {
-                return redirect('/admBuscarDental')->with('false', 'El registro # ' . $codDental . ' no se elimino');
+                return redirect('/admBuscarIntraoral')->with('false', 'El registro # ' . $codIntraoral . ' no se elimino');
             }
         }
     }
@@ -208,25 +213,25 @@ class intraoralController extends Controller
         $intra = null;
         $intraoral = new intraoral();
         if ($request->select == 'RUC') {
-            $intra = $intraoral->consultarDentalRUC($request->text);
+            $intra = $intraoral->consultarIntraoralRUC($request->text);
         } else {
             if ($request->select == 'Codigo Cliente') {
-                $intra = $intraoral->consultarDentalCodigoCliente($request->text);
+                $intra = $intraoral->consultarIntraoralCodigoCliente($request->text);
             } else {
                 if ($request->select == 'Codigo Registro') {
-                    $intra = $intraoral->consultarDentalCodigoRegistro($request->text);
+                    $intra = $intraoral->consultarIntraoralCodigoRegistro($request->text);
                 } else {
                     if ($request->select == 'Codigo Rayos X') {
-                        $intra = $intraoral->consultarDentalCodigoRayosX($request->text);
+                        $intra = $intraoral->consultarIntraoralCodigoRayosX($request->text);
                     } else {
                         if ($request->select == 'Razon Social') {
-                            $intra = $intraoral->consultarDentalRazonSocial($request->text);
+                            $intra = $intraoral->consultarIntraoralRazonSocial($request->text);
                         }
                     }
                 }
             }
         }
         if ($valueA == 'Administrador')
-            return view('Administrador/Intraoral/buscar')->with(['intraoral' => $intra, 'txt' => $request->text, 'select' => $request->select]);
+            return view('Administrador/Dental/Intraoral/buscar')->with(['intraoral' => $intra, 'txt' => $request->text, 'select' => $request->select]);
     }
 }

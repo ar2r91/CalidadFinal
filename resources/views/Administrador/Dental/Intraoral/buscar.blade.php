@@ -28,7 +28,8 @@
                 <div class="panel-heading">Datos Dental-Intraoral</div>
                 <div class="panel-body">
                     <div class="row">
-                        <form name="form" action="{{url('')}}" role="Form" method="Get" class="Vertical">
+                        <form name="form" action="{{url('IntraoralBuscado')}}" role="Form" method="Get"
+                              class="Vertical">
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Buscar por:</span>
                                 <div class="row">
@@ -78,23 +79,23 @@
                                         @if(isset($intraoral))
                                             @foreach($intraoral as $i)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>{{$i->ruc}}</td>
+                                                    <td>{{$i->razonSocial}}</td>
+                                                    <td>{{$i->codIntraoral}}</td>
+                                                    <td>{{Carbon\Carbon::parse($i->fecha)->format('d-m-Y')}}</td>
+                                                    <td>{{$i->codRayosX}}</td>
+                                                    <td>{{$i->codEquipoMedicion}}</td>
                                                     <td align="center">
                                                         {{ csrf_field() }}
                                                         <a title="Reporte"
-                                                           href="/DentalReportePDF/{{$i->codIntraoral}}"><span
+                                                           href="/IntraoralReportePDF/{{$i->codIntraoral}}"><span
                                                                     class="fa fa-file-pdf-o"
                                                                     style="color: red;">R</span>
                                                         </a>
                                                         @if($i->certificado==1)
                                                             &nbsp;&nbsp;&nbsp;
                                                             <a title="Cetificado"
-                                                               href="/DentalCertificadoPDF/{{$i->codIntraoral}}"><span
+                                                               href="/IntraoralReportePDF/{{$i->codIntraoral}}"><span
                                                                         class="fa fa-file-pdf-o"
                                                                         style="color: green;">C</span>
                                                             </a>

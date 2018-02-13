@@ -23,7 +23,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="panel-heading"><h3>Agregar Dental-Intraoral</h3></div>
-            <form name="form" action="{{url('')}}" role="Form" method="POST" class="Horizontal">
+            <form name="form" action="{{url('RegistrarIntraoral')}}" role="Form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -191,6 +191,11 @@
                     </div>
                     <div class="panel-body">
                         <div class=" row ">
+                            <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
+                                <span class="control-label">Codigo:</span>
+                                <input class="form-control input-sm" name="codigo"
+                                       autocomplete="off" placeholder="#" required id="codigo" readonly>
+                            </div>
                             <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                 <span class="control-label">Tipo 1:</span>
                                 <input class="form-control input-sm" name="tipo1"
@@ -1136,24 +1141,25 @@
                             dataType: 'json',
                             data: {id: data.codRayosX},
                             success: function (result) {
-                                $('#tipo1').val(result[0]);
-                                $('#tipo2').val(result[1]);
-                                $('#tipo3').val(result[2]);
-                                $('#marcat3').val(result[3]);
-                                $('#modelot3').val(result[4]);
-                                $('#seriet3').val(result[5]);
-                                $('#tensionmaxt3').val(result[6]);
-                                $('#cargamaxt3').val(result[7]);
-                                $('#fabricaciont3').val(result[8]);
-                                $('#instalaciont3').val(result[9]);
-                                $('#tipo4').val(result[10]);
-                                $('#marcat4').val(result[11]);
-                                $('#modelot4').val(result[12]);
-                                $('#seriet4').val(result[13]);
-                                $('#tensionmaxt4').val(result[14]);
-                                $('#cargamaxt4').val(result[15]);
-                                $('#fabricaciont4').val(result[16]);
-                                $('#instalaciont4').val(result[17]);
+                                $('#codigo').val(result[0]);
+                                $('#tipo1').val(result[1]);
+                                $('#tipo2').val(result[2]);
+                                $('#tipo3').val(result[3]);
+                                $('#marcat3').val(result[4]);
+                                $('#modelot3').val(result[5]);
+                                $('#seriet3').val(result[6]);
+                                $('#tensionmaxt3').val(result[7]);
+                                $('#cargamaxt3').val(result[8]);
+                                $('#fabricaciont3').val(result[9]);
+                                $('#instalaciont3').val(result[10]);
+                                $('#tipo4').val(result[11]);
+                                $('#marcat4').val(result[12]);
+                                $('#modelot4').val(result[13]);
+                                $('#seriet4').val(result[14]);
+                                $('#tensionmaxt4').val(result[15]);
+                                $('#cargamaxt4').val(result[16]);
+                                $('#fabricaciont4').val(result[17]);
+                                $('#instalaciont4').val(result[18]);
                             }
                         });
                     });

@@ -111,6 +111,12 @@ Route::get('/admBuscarIntraoral', function () {
     return view('Administrador/Dental/Intraoral/buscar');
 });
 
+Route::post('/RegistrarIntraoral', 'intraoralController@registrarIntraoral');
+Route::get('/IntraoralBuscado', 'intraoralController@listarIntraoral');
+Route::get('/IntraoralEliminar/{codParamGeometricos}/{codCalidadHaz}/{codTiempoExposicion}/{codRendimiento}/{codDosisPaciente}/{codIntraoral}', 'intraoralController@eliminarIntraoral');
+Route::get('/IntraoralReportePDF/{codIntraoral}', 'PdfController@pdfReporteIntraoral');
+Route::get('/IntraoralCertificadoPDF/{codIntraoral}', 'PdfController@pdfCertificadoIntraoral');
+
 /////////////////////////////////////////////////DENTAL-PANORAMICO//////////////////////////////////////////////////////
 
 Route::get('/admRegistrarPanoramico', function () {

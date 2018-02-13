@@ -300,7 +300,7 @@ class intraoral
         $value = Session::get('personalC');
         $codPers = $log->obtenerCodigoPersonal($value);
         $log->setFecha($date);
-        $log->setDescripcion('registrarCliente');
+        $log->setDescripcion('saveintraoral');
         try {
             DB::transaction(function () use ($log, $ruc, $codigo, $serie, $param, $calidad, $tiempo, $rendim, $dosi, $codPers) {
                 //PARAMETROS GEOMETRICOS
@@ -327,10 +327,10 @@ class intraoral
                 $codD = DB::table('dosispaciente')->insertGetId(['exploracion' => $dosi['exploracion'], 'dosis' => $dosi['dosis'], 'valoraceptable' => $dosi['valoraceptable'],
                     'distancia' => $dosi['distancia'], 'tension' => $dosi['tension'], 'corriente' => $dosi['corriente'], 'tiempoexposicion' => $dosi['tiempoexposicion']]);
 
-                //DENTAL
+                //Intraoral
                 $codCli = DB::table('cliente')->where('ruc', $ruc)->value('codCliente');
                 $codE = DB::table('equipomedicion')->where('serie', $serie)->value('codEquipoMedicion');
-                DB::table('dental')->insertGetId(['ubicacion' => $this->ubicacion, 'fecha' => $this->fecha, 'estabilidadmecanica' => $this->establidadmecanica, 'movimientoequipo' => $this->movimientoequipo,
+                DB::table('intraoral')->insertGetId(['ubicacion' => $this->ubicacion, 'fecha' => $this->fecha, 'estabilidadmecanica' => $this->establidadmecanica, 'movimientoequipo' => $this->movimientoequipo,
                     'estadocables' => $this->estadocables, 'grantygira' => $this->grantygira, 'indicadoresoperativos' => $this->indicadoresoperativos, 'aireacondicionado' => $this->aireacondicionado,
                     'sistemaaudible' => $this->sistemaaudible, 'manualequipo' => $this->manualequipo, 'idCliente' => $codCli, 'idRayosX' => $codigo, 'idParamGeometricos' => $codP, 'certificado' => $this->certificado,
                     'idCalidadHaz' => $codC, 'idTiempoExposicion' => $codT, 'idRendimiento' => $codR, 'idDosisPaciente' => $codD, 'idEquipoMedicion' => $codE, 'codPersonal' => $codPers, 'conclusiones' => $this->conclusiones,
@@ -345,19 +345,19 @@ class intraoral
         return true;
     }
 
-    public function consultarIntraolRUC($ruc)
+    public function consultarIntraoralRUC($ruc)
     {
         try {
-            $intraoral = DB::select('select ruc, razonSocial, codDental, dental.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento, certificado from dental 
-            left join cliente on dental.idCliente = cliente.codCliente
-            left join rayosx on dental.idRayosX = rayosx.codRayosX
-            left join equipomedicion on dental.idEquipoMedicion = equipomedicion.codEquipoMedicion
-            left join paramgeometrico on dental.idParamGeometricos = paramgeometrico.codParamGeometricos
-            left join calidadhaz on dental.idCalidadHaz = calidadhaz.codCalidadHaz
-            left join tiempoexposicion on dental.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
-            left join dosispaciente on dental.idDosisPaciente = dosispaciente.codDosisPaciente
-            left join rendimiento on dental.idRendimiento = rendimiento.codRendimiento
-            where dental.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
+            $intraoral = DB::select('select ruc, razonSocial, codIntraoral, Intraoral.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento, certificado from intraoral 
+            left join cliente on intraoral.idCliente = cliente.codCliente
+            left join rayosx on intraoral.idRayosX = rayosx.codRayosX
+            left join equipomedicion on intraoral.idEquipoMedicion = equipomedicion.codEquipoMedicion
+            left join paramgeometrico on intraoral.idParamGeometricos = paramgeometrico.codParamGeometricos
+            left join calidadhaz on intraoral.idCalidadHaz = calidadhaz.codCalidadHaz
+            left join tiempoexposicion on intraoral.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
+            left join dosispaciente on intraoral.idDosisPaciente = dosispaciente.codDosisPaciente
+            left join rendimiento on intraoral.idRendimiento = rendimiento.codRendimiento
+            where intraoral.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
             and tiempoexposicion.estado=1 and dosispaciente.estado=1 and rendimiento.estado=1 and cliente.ruc like "%' . $ruc . '%"');
         } catch (PDOException $e) {
             $util = new util();
@@ -370,16 +370,16 @@ class intraoral
     public function consultarIntraoralCodigoCliente($codCliente)
     {
         try {
-            $intraoral = DB::select('select ruc, razonSocial, codDental, dental.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento,certificado from dental 
-            left join cliente on dental.idCliente = cliente.codCliente
-            left join rayosx on dental.idRayosX = rayosx.codRayosX
-            left join equipomedicion on dental.idEquipoMedicion = equipomedicion.codEquipoMedicion
-            left join paramgeometrico on dental.idParamGeometricos = paramgeometrico.codParamGeometricos
-            left join calidadhaz on dental.idCalidadHaz = calidadhaz.codCalidadHaz
-            left join tiempoexposicion on dental.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
-            left join dosispaciente on dental.idDosisPaciente = dosispaciente.codDosisPaciente
-            left join rendimiento on dental.idRendimiento = rendimiento.codRendimiento
-            where dental.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
+            $intraoral = DB::select('select ruc, razonSocial, codIntraoral, intraoral.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento,certificado from intraoral 
+            left join cliente on intraoral.idCliente = cliente.codCliente
+            left join rayosx on intraoral.idRayosX = rayosx.codRayosX
+            left join equipomedicion on intraoral.idEquipoMedicion = equipomedicion.codEquipoMedicion
+            left join paramgeometrico on intraoral.idParamGeometricos = paramgeometrico.codParamGeometricos
+            left join calidadhaz on intraoral.idCalidadHaz = calidadhaz.codCalidadHaz
+            left join tiempoexposicion on intraoral.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
+            left join dosispaciente on intraoral.idDosisPaciente = dosispaciente.codDosisPaciente
+            left join rendimiento on intraoral.idRendimiento = rendimiento.codRendimiento
+            where intraoral.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
             and tiempoexposicion.estado=1 and dosispaciente.estado=1 and rendimiento.estado=1 and cliente.codCliente like "%' . $codCliente . '%"');
         } catch (PDOException $e) {
             $util = new util();
@@ -392,17 +392,17 @@ class intraoral
     public function consultarIntraoralCodigoRegistro($codigo)
     {
         try {
-            $intraoral = DB::select('select ruc, razonSocial, codDental, dental.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento, certificado from dental 
-            left join cliente on dental.idCliente = cliente.codCliente
-            left join rayosx on dental.idRayosX = rayosx.codRayosX
-            left join equipomedicion on dental.idEquipoMedicion = equipomedicion.codEquipoMedicion
-            left join paramgeometrico on dental.idParamGeometricos = paramgeometrico.codParamGeometricos
-            left join calidadhaz on dental.idCalidadHaz = calidadhaz.codCalidadHaz
-            left join tiempoexposicion on dental.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
-            left join dosispaciente on dental.idDosisPaciente = dosispaciente.codDosisPaciente
-            left join rendimiento on dental.idRendimiento = rendimiento.codRendimiento
-            where dental.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
-            and tiempoexposicion.estado=1 and dosispaciente.estado=1 and rendimiento.estado=1 and dental.codDental like "%' . $codigo . '%"');
+            $intraoral = DB::select('select ruc, razonSocial, codIntraoral, intraoral.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento, certificado from intraoral 
+            left join cliente on intraoral.idCliente = cliente.codCliente
+            left join rayosx on intraoral.idRayosX = rayosx.codRayosX
+            left join equipomedicion on intraoral.idEquipoMedicion = equipomedicion.codEquipoMedicion
+            left join paramgeometrico on intraoral.idParamGeometricos = paramgeometrico.codParamGeometricos
+            left join calidadhaz on intraoral.idCalidadHaz = calidadhaz.codCalidadHaz
+            left join tiempoexposicion on intraoral.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
+            left join dosispaciente on intraoral.idDosisPaciente = dosispaciente.codDosisPaciente
+            left join rendimiento on intraoral.idRendimiento = rendimiento.codRendimiento
+            where intraoral.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
+            and tiempoexposicion.estado=1 and dosispaciente.estado=1 and rendimiento.estado=1 and intraoral.codIntraoral like "%' . $codigo . '%"');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarIntraoralCodigoRegistro/intraoral');
@@ -415,7 +415,7 @@ class intraoral
     {
         try {
             $intraoral = DB::select('SELECT 
-            dental.fecha AS dfecha, codDental,
+            intraoral.fecha AS dfecha, codIntraoral,
             razonSocial,
             ruc,
             direccion,
@@ -474,11 +474,11 @@ class intraoral
             dosispaciente.corriente AS dcorriente,
             dosispaciente.tiempoexposicion AS dtiempoexposicion
         FROM
-            dental
+            intraoral
                 LEFT JOIN
-            cliente ON dental.idCliente = cliente.codCliente
+            cliente ON intraoral.idCliente = cliente.codCliente
                 LEFT JOIN
-            rayosx ON dental.idRayosX = rayosx.codRayosX
+            rayosx ON intraoral.idRayosX = rayosx.codRayosX
                 LEFT JOIN
             componentea ON rayosx.idComponentea = componentea.codComponentea
                 LEFT JOIN
@@ -488,19 +488,19 @@ class intraoral
                 LEFT JOIN
             componentepadre AS cp2 ON componenteb.idComponentePadre = cp2.codComponentePadre
                 LEFT JOIN
-            equipomedicion ON dental.idEquipoMedicion = equipomedicion.codEquipoMedicion
+            equipomedicion ON intraoral.idEquipoMedicion = equipomedicion.codEquipoMedicion
                 LEFT JOIN
-            paramgeometrico ON dental.idParamGeometricos = paramgeometrico.codParamGeometricos
+            paramgeometrico ON intraoral.idParamGeometricos = paramgeometrico.codParamGeometricos
                 LEFT JOIN
-            calidadhaz ON dental.idCalidadHaz = calidadhaz.codCalidadHaz
+            calidadhaz ON intraoral.idCalidadHaz = calidadhaz.codCalidadHaz
                 LEFT JOIN
-            tiempoexposicion ON dental.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
+            tiempoexposicion ON intraoral.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
                 LEFT JOIN
-            dosispaciente ON dental.idDosisPaciente = dosispaciente.codDosisPaciente
+            dosispaciente ON intraoral.idDosisPaciente = dosispaciente.codDosisPaciente
                 LEFT JOIN
-            rendimiento ON dental.idRendimiento = rendimiento.codRendimiento
+            rendimiento ON intraoral.idRendimiento = rendimiento.codRendimiento
         WHERE
-            dental.estado = 1 AND cliente.estado = 1
+            intraoral.estado = 1 AND cliente.estado = 1
                 AND rayosx.estado = 1
                 AND componentea.estado = 1
                 AND componenteb.estado = 1
@@ -512,7 +512,7 @@ class intraoral
                 AND tiempoexposicion.estado = 1
                 AND dosispaciente.estado = 1
                 AND rendimiento.estado = 1
-                AND dental.codDental =:codDental', ['codDental' => $codigo]);
+                AND intraoral.codIntraoral =:codIntraoral', ['codIntraoral' => $codigo]);
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarIntraoralInforme/intraoral');
@@ -524,18 +524,18 @@ class intraoral
     public function consultarIntraoralCertificado($codigo)
     {
         try {
-            $intraoral = DB::select('select razonSocial, codDental, fecha, ubicacion, tipo1, tipo3, cp1.marca as cp1marca, cp1.serie as cp1serie, cp1.tensionmax as cp1tensionmax,
+            $intraoral = DB::select('select razonSocial, codIntraoral, fecha, ubicacion, tipo1, tipo3, cp1.marca as cp1marca, cp1.serie as cp1serie, cp1.tensionmax as cp1tensionmax,
 			cp1.cargamax as cp1cargamax, cp1.fabricacion as cp1fabricacion, cp1.instalacion as cp1instalacion, cp2.marca as cp2marca, cp2.serie as cp2serie, cp2.tensionmax as cp2tensionmax,
-			cp2.cargamax as cp2cargamax, cp2.fabricacion as cp2fabricacion, cp2.instalacion as cp2instalacion, tipo4, vigencia from dental 
-            left join cliente on dental.idCliente = cliente.codCliente
-            left join rayosx on dental.idRayosX = rayosx.codRayosX
+			cp2.cargamax as cp2cargamax, cp2.fabricacion as cp2fabricacion, cp2.instalacion as cp2instalacion, tipo4, vigencia from intraoral 
+            left join cliente on intraoral.idCliente = cliente.codCliente
+            left join rayosx on intraoral.idRayosX = rayosx.codRayosX
             left join componentea on rayosx.idComponentea = componentea.codComponentea
             left join componenteb on rayosx.idComponenteb = componenteb.codComponenteb
             left join componentepadre as cp1 on componentea.idComponentePadre = cp1.codComponentePadre
             left join componentepadre as cp2 on componenteb.idComponentePadre = cp2.codComponentePadre
-            left join dosispaciente on dental.idDosisPaciente = dosispaciente.codDosisPaciente
-            where dental.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and componentea.estado=1 and dosispaciente.estado = 1
-            and componenteb.estado = 1 and cp1.estado=1 and cp2.estado = 1 and dental.codDental =:codDental', ['codDental' => $codigo]);
+            left join dosispaciente on intraoral.idDosisPaciente = dosispaciente.codDosisPaciente
+            where intraoral.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and componentea.estado=1 and dosispaciente.estado = 1
+            and componenteb.estado = 1 and cp1.estado=1 and cp2.estado = 1 and intraoral.codIntraoral =:codIntraoral', ['codIntraoral' => $codigo]);
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarIntraoralCertificado/intraoral');
@@ -547,16 +547,16 @@ class intraoral
     public function consultarIntraoralCodigoRayosX($codRayosX)
     {
         try {
-            $intraoral = DB::select('select ruc, razonSocial, codDental, dental.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento,certificado from dental 
-            left join cliente on dental.idCliente = cliente.codCliente
-            left join rayosx on dental.idRayosX = rayosx.codRayosX
-            left join equipomedicion on dental.idEquipoMedicion = equipomedicion.codEquipoMedicion
-            left join paramgeometrico on dental.idParamGeometricos = paramgeometrico.codParamGeometricos
-            left join calidadhaz on dental.idCalidadHaz = calidadhaz.codCalidadHaz
-            left join tiempoexposicion on dental.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
-            left join dosispaciente on dental.idDosisPaciente = dosispaciente.codDosisPaciente
-            left join rendimiento on dental.idRendimiento = rendimiento.codRendimiento
-            where dental.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
+            $intraoral = DB::select('select ruc, razonSocial, codIntraoral, intraoral.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento,certificado from intraoral 
+            left join cliente on intraoral.idCliente = cliente.codCliente
+            left join rayosx on intraoral.idRayosX = rayosx.codRayosX
+            left join equipomedicion on intraoral.idEquipoMedicion = equipomedicion.codEquipoMedicion
+            left join paramgeometrico on intraoral.idParamGeometricos = paramgeometrico.codParamGeometricos
+            left join calidadhaz on intraoral.idCalidadHaz = calidadhaz.codCalidadHaz
+            left join tiempoexposicion on intraoral.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
+            left join dosispaciente on intraoral.idDosisPaciente = dosispaciente.codDosisPaciente
+            left join rendimiento on intraoral.idRendimiento = rendimiento.codRendimiento
+            where intraoral.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
             and tiempoexposicion.estado=1 and dosispaciente.estado=1 and rendimiento.estado=1 and rayosx.codRayosX like "%' . $codRayosX . '%"');
         } catch (PDOException $e) {
             $util = new util();
@@ -569,16 +569,16 @@ class intraoral
     public function consultarIntraoralRazonSocial($razonSocial)
     {
         try {
-            $intraoral = DB::select('select ruc, razonSocial, codDental, dental.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento,certificado from dental 
-            left join cliente on dental.idCliente = cliente.codCliente
-            left join rayosx on dental.idRayosX = rayosx.codRayosX
-            left join equipomedicion on dental.idEquipoMedicion = equipomedicion.codEquipoMedicion
-            left join paramgeometrico on dental.idParamGeometricos = paramgeometrico.codParamGeometricos
-            left join calidadhaz on dental.idCalidadHaz = calidadhaz.codCalidadHaz
-            left join tiempoexposicion on dental.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
-            left join dosispaciente on dental.idDosisPaciente = dosispaciente.codDosisPaciente
-            left join rendimiento on dental.idRendimiento = rendimiento.codRendimiento
-            where dental.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
+            $intraoral = DB::select('select ruc, razonSocial, codIntraoral, intraoral.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento,certificado from intraoral 
+            left join cliente on intraoral.idCliente = cliente.codCliente
+            left join rayosx on intraoral.idRayosX = rayosx.codRayosX
+            left join equipomedicion on intraoral.idEquipoMedicion = equipomedicion.codEquipoMedicion
+            left join paramgeometrico on intraoral.idParamGeometricos = paramgeometrico.codParamGeometricos
+            left join calidadhaz on intraoral.idCalidadHaz = calidadhaz.codCalidadHaz
+            left join tiempoexposicion on intraoral.idTiempoExposicion = tiempoexposicion.codTiempoExposicion
+            left join dosispaciente on intraoral.idDosisPaciente = dosispaciente.codDosisPaciente
+            left join rendimiento on intraoral.idRendimiento = rendimiento.codRendimiento
+            where intraoral.estado = 1 and cliente.estado = 1 and rayosx.estado=1 and equipomedicion.estado=1 and paramgeometrico.estado =1 and calidadhaz.estado =1
             and tiempoexposicion.estado=1 and dosispaciente.estado=1 and rendimiento.estado=1 and cliente.razonSocial like "%' . $razonSocial . '%"');
         } catch (PDOException $e) {
             $util = new util();
@@ -588,7 +588,7 @@ class intraoral
         return $intraoral;
     }
 
-    public function eliminarIntraoral($codParamGeometricos, $codCalidadHaz, $codTiempoExposicion, $codRendimiento, $codDosisPaciente, $codDental)
+    public function eliminarIntraoral($codParamGeometricos, $codCalidadHaz, $codTiempoExposicion, $codRendimiento, $codDosisPaciente, $codIntraoral)
     {
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
@@ -598,13 +598,13 @@ class intraoral
         $log->setFecha($date);
         $log->setDescripcion('EliminarRayosX');
         try {
-            DB::transaction(function () use ($log, $codParamGeometricos, $codCalidadHaz, $codTiempoExposicion, $codRendimiento, $codDosisPaciente, $codDental, $codPers) {
+            DB::transaction(function () use ($log, $codParamGeometricos, $codCalidadHaz, $codTiempoExposicion, $codRendimiento, $codDosisPaciente, $codIntraoral, $codPers) {
                 DB::table('paramgeometrico')->where('codParamGeometricos', $codParamGeometricos)->update(['estado' => 0]);
                 DB::table('calidadhaz')->where('codCalidadHaz', $codCalidadHaz)->update(['estado' => 0]);
                 DB::table('tiempoexposicion')->where('CodTiempoExposicion', $codTiempoExposicion)->update(['estado' => 0]);
                 DB::table('rendimiento')->where('codRendimiento', $codRendimiento)->update(['estado' => 0]);
                 DB::table('dosispaciente')->where('codDosisPaciente', $codDosisPaciente)->update(['estado' => 0]);
-                DB::table('dental')->where('codDental', $codDental)->update(['estado' => 0]);
+                DB::table('intraoral')->where('codIntraoral', $codIntraoral)->update(['estado' => 0]);
                 $log->saveLog($codPers);
             });
         } catch (PDOException $e) {

@@ -156,24 +156,25 @@ class rayosxController extends Controller
         $rayosx = new rayosxmodel();
         $rayo = $rayosx->rayosXId($request->id);
         foreach ($rayo as $r) {
-            $dato[0] = $r->tipo1;
-            $dato[1] = $r->tipo2;
-            $dato[2] = $r->tipo3;
-            $dato[3] = $r->marcat3;
-            $dato[4] = $r->modelot3;
-            $dato[5] = $r->seriet3;
-            $dato[6] = $r->tensionmaxt3;
-            $dato[7] = $r->cargamaxt3;
-            $dato[8] = $r->fabricaciont3;
-            $dato[9] = $r->instalaciont3;
-            $dato[10] = $r->tipo4;
-            $dato[11] = $r->marcat4;
-            $dato[12] = $r->modelot4;
-            $dato[13] = $r->seriet4;
-            $dato[14] = $r->tensionmaxt4;
-            $dato[15] = $r->cargamaxt4;
-            $dato[16] = $r->fabricaciont4;
-            $dato[17] = $r->instalaciont4;
+            $dato[0] = $request->id;
+            $dato[1] = $r->tipo1;
+            $dato[2] = $r->tipo2;
+            $dato[3] = $r->tipo3;
+            $dato[4] = $r->marcat3;
+            $dato[5] = $r->modelot3;
+            $dato[6] = $r->seriet3;
+            $dato[7] = $r->tensionmaxt3;
+            $dato[8] = $r->cargamaxt3;
+            $dato[9] = $r->fabricaciont3;
+            $dato[10] = $r->instalaciont3;
+            $dato[11] = $r->tipo4;
+            $dato[12] = $r->marcat4;
+            $dato[13] = $r->modelot4;
+            $dato[14] = $r->seriet4;
+            $dato[15] = $r->tensionmaxt4;
+            $dato[16] = $r->cargamaxt4;
+            $dato[17] = $r->fabricaciont4;
+            $dato[18] = $r->instalaciont4;
         }
         return response()->json($dato);
     }

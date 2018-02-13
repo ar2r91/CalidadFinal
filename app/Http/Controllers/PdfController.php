@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\dental;
+use App\intraoral;
 
 class PdfController extends Controller
 {
-    public function pdfReporteDental($codDental)
+    public function pdfReporteIntraoral($codIntraoral)
     {
-        $dental = new dental();
-        $dent = $dental->consultarDentalInforme($codDental);
+        $intraoral = new intraoral();
+        $intra = $intraoral->consultarIntraoralInforme($codIntraoral);
 
-        view()->share(['dental' => $dent]);
+        view()->share(['intraoral' => $intra]);
 
         $pdf = app('dompdf.wrapper');
 
-        $pdf->loadView('Administrador/Dental/reporte');
-        return $pdf->download('ReporteDental.pdf');
+        $pdf->loadView('Administrador/Dental/Intraoral/reporte');
+        return $pdf->download('ReporteIntraoral.pdf');
     }
 
-    public function pdfCertificadoDental($codDental)
+    public function pdfCertificadoIntraoral($codIntraoral)
     {
-        $dental = new dental();
-        $dent = $dental->consultarDentalCertificado($codDental);
+        $intraoral = new intraoral();
+        $intra = $intraoral->consultarIntraoralCertificado($codIntraoral);
 
-        view()->share(['dental' => $dent]);
+        view()->share(['intraoral' => $intra]);
 
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('Administrador/Dental/certificado');
-        return $pdf->download('CertificadoDental.pdf');
+        $pdf->loadView('Administrador/Dental/Intraoral/certificado');
+        return $pdf->download('CertificadoIntraoral.pdf');
     }
 }
