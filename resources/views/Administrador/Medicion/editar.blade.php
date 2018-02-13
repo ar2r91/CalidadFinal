@@ -41,7 +41,7 @@
                                     <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                                         Tipo:
                                         <select class="form-control " name="tipo" id="tipo">
-                                            <option selected disabled>{{$m->tipo}}</option>
+                                            <option selected readonly="{{$m->tipo}}">{{$m->tipo}}</option>
                                             <option>Detector de Radiación</option>
                                             <option>Cámara de Ionización</option>
                                             <option>Electrómetro</option>

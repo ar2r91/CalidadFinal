@@ -52,9 +52,9 @@ class medicionController extends Controller
 
         if ($valueA == 'Administrador') {
             if ($med == true) {
-                return redirect('/admBuscarEquipoMedicion')->with('true', 'Equipo de medicion ' . $request->nombres . ' fue editado con exito');
+                return redirect('/admBuscarMedicion')->with('true', 'Equipo de medicion ' . $request->nombres . ' fue editado con exito');
             } else {
-                return redirect('/admBuscarEquipoMedicion')->with('false', 'Equipo de medicion ' . $request->nombres . 'no fue editado con exito');
+                return redirect('/admBuscarMedicion')->with('false', 'Equipo de medicion ' . $request->nombres . 'no fue editado con exito');
             }
         }
     }
