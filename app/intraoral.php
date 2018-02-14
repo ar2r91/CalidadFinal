@@ -348,7 +348,7 @@ class intraoral
     public function consultarIntraoralRUC($ruc)
     {
         try {
-            $intraoral = DB::select('select ruc, razonSocial, codIntraoral, Intraoral.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento, certificado from intraoral 
+            $intraoral = DB::select('select ruc, razonSocial, codIntraoral, intraoral.fecha, codRayosX, codEquipoMedicion, codParamGeometricos, codCalidadHaz,codTiempoExposicion,codDosisPaciente,codRendimiento,certificado from intraoral 
             left join cliente on intraoral.idCliente = cliente.codCliente
             left join rayosx on intraoral.idRayosX = rayosx.codRayosX
             left join equipomedicion on intraoral.idEquipoMedicion = equipomedicion.codEquipoMedicion
