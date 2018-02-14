@@ -54,7 +54,7 @@
                                 <span class="control-label"> Ingresa datos aqui</span>
                                 <span class="input-group-btn">
                             <input name="text" id="text" class="form-control"
-                                   autocomplete="off" required>
+                                   autocomplete="off">
                             </span>
                                 <span class="input-group-btn">
                             <button class="btn btn-sm" id="buscar">Buscar</button>
