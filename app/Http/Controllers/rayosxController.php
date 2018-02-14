@@ -144,9 +144,14 @@ class rayosxController extends Controller
 
     public function buscarRayosXRuc(Request $request)
     {
+        $rayo = null;
         $rayosx = new rayosxmodel();
-        $rayo = $rayosx->buscarRayosx($request->buscar);
+        if ($request->select == 'RUC') {
+            $rayo = $rayosx->rayosXRuc($request->buscar);
 
+        } elseif ($request->select == 'Razon Social') {
+            $rayo = $rayosx->rayosXRazonS($request->buscar);
+        }
         return response()->json($rayo);
     }
 

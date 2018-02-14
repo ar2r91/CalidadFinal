@@ -304,7 +304,7 @@ class rayosxmodel
         return $rayoxbd;
     }
 
-    public function buscarRayosx($ruc)
+    public function rayosXRuc($ruc)
     {
         try {
             $rayoxbd = DB::select('SELECT codRayosX,tipo1, tipo2, equipo
@@ -315,6 +315,25 @@ class rayosxmodel
               LEFT JOIN componentepadre as cp2 on componenteb.idComponentePadre = cp2.codComponentePadre
               WHERE cliente.estado=1 and componentea.estado=1 and componenteb.estado=1
               and cp1.estado=1 and cp2.estado=1 and cliente.ruc =:ruc ', ['ruc' => $ruc]);
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'buscarRayosx/rayosxmodel');
+            return false;
+        }
+        return $rayoxbd;
+    }
+
+    public function rayosXRazonS($razonSocial)
+    {
+        try {
+            $rayoxbd = DB::select('SELECT codRayosX,tipo1, tipo2, equipo
+              FROM cliente LEFT JOIN rayosx ON cliente.codCliente = rayosx.idCliente
+              LEFT JOIN componentea ON rayosx.idComponentea = componentea.codComponentea
+              LEFT JOIN componenteb on rayosx.idComponenteb = componenteb.codComponenteb
+              LEFT JOIN componentepadre as cp1 on componentea.idComponentePadre = cp1.codComponentePadre
+              LEFT JOIN componentepadre as cp2 on componenteb.idComponentePadre = cp2.codComponentePadre
+              WHERE cliente.estado=1 and componentea.estado=1 and componenteb.estado=1
+              and cp1.estado=1 and cp2.estado=1 and cliente.razonSocial =:razonSocial ', ['razonSocial' => $razonSocial]);
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'buscarRayosx/rayosxmodel');

@@ -1120,7 +1120,10 @@
                 type: 'get',
                 url: 'buscarRayosXRuc',
                 dataType: 'json',
-                data: {buscar: $('#buscar').val()},
+                data: {
+                    select: $('#select').val(),
+                    buscar: $('#buscar').val()
+                },
                 success: function (result) {
                     var table = $('#example').DataTable({
                         "destroy": true,
