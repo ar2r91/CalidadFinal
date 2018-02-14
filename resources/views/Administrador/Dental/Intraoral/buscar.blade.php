@@ -24,6 +24,12 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="panel-heading"><h3>Buscar Dental-Intraoral</h3></div>
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             <div class="panel panel-primary">
                 <div class="panel-heading">Datos Dental-Intraoral</div>
                 <div class="panel-body">
@@ -101,7 +107,7 @@
                                                             </a>
                                                         @endif
                                                         &nbsp;&nbsp;&nbsp;
-                                                        <a onclick="eliminar(event,'DentalEliminar/{{$i->codParamGeometricos}}/{{$i->codCalidadHaz}}/{{$i->codTiempoExposicion}}/{{$i->codRendimiento}}/{{$i->codDosisPaciente}}/{{$i->codIntraoral}}')"
+                                                        <a onclick="eliminar(event,'IntraoralEliminar/{{$i->codParamGeometricos}}/{{$i->codCalidadHaz}}/{{$i->codTiempoExposicion}}/{{$i->codRendimiento}}/{{$i->codDosisPaciente}}/{{$i->codIntraoral}}')"
                                                            title="Eliminar"
                                                            href=""><span class="glyphicon glyphicon-trash"
                                                                          style="color: red;"></span> </a>
