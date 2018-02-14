@@ -200,7 +200,7 @@ class intraoralController extends Controller
 
         if ($valueA == 'Administrador') {
             if ($intra == true) {
-                    return redirect('/admBuscarIntraoral')->with('true', 'El registro # ' . $codIntraoral . ' fue eliminada con exito');
+                return redirect('/admBuscarIntraoral')->with('true', 'El registro # ' . $codIntraoral . ' fue eliminada con exito');
             } else {
                 return redirect('/admBuscarIntraoral')->with('false', 'El registro # ' . $codIntraoral . ' no se elimino');
             }
