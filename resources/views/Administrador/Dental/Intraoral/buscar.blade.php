@@ -95,7 +95,7 @@
                                                         @if($i->certificado==1)
                                                             &nbsp;&nbsp;&nbsp;
                                                             <a title="Cetificado"
-                                                               href="/IntraoralReportePDF/{{$i->codIntraoral}}"><span
+                                                               href="/IntraoralCertificadoPDF/{{$i->codIntraoral}}"><span
                                                                         class="fa fa-file-pdf-o"
                                                                         style="color: green;">C</span>
                                                             </a>
