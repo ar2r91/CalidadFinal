@@ -361,7 +361,7 @@ class intraoral
             and tiempoexposicion.estado=1 and dosispaciente.estado=1 and rendimiento.estado=1 and cliente.ruc like "%' . $ruc . '%"');
         } catch (PDOException $e) {
             $util = new util();
-            $util->insertarError($e->getMessage(), 'consultarIntraolRUC/intraoral');
+            $util->insertarError($e->getMessage(), 'consultarIntraoralRUC/intraoral');
             return false;
         }
         return $intraoral;
