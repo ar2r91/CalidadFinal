@@ -333,7 +333,7 @@ class intraoral
                 DB::table('intraoral')->insertGetId(['ubicacion' => $this->ubicacion, 'fecha' => $this->fecha, 'estabilidadmecanica' => $this->establidadmecanica, 'movimientoequipo' => $this->movimientoequipo,
                     'estadocables' => $this->estadocables, 'grantygira' => $this->grantygira, 'indicadoresoperativos' => $this->indicadoresoperativos, 'aireacondicionado' => $this->aireacondicionado,
                     'sistemaaudible' => $this->sistemaaudible, 'manualequipo' => $this->manualequipo, 'idCliente' => $codCli, 'idRayosX' => $codigo, 'idParamGeometricos' => $codP, 'certificado' => $this->certificado,
-                    'idCalidadHaz' => $codC, 'idTiempoExposicion' => $codT, 'idRendimiento' => $codR, 'idDosisPaciente' => $codD, 'idEquipoMedicion' => $codE, 'codPersonal' => $codPers, 'conclusiones' => $this->conclusiones,
+                    'idCalidadHaz' => $codC, 'idTiempoExposicion' => $codT, 'idRendimiento' => $codR, 'idDosisPaciente' => $codD, 'idEquipoMedicion' => $codE, 'idPersonal' => $codPers, 'conclusiones' => $this->conclusiones,
                     'recomendaciones' => $this->recomendaciones, 'vigencia' => $this->vigencia]);
                 $log->saveLog($codPers);
             });
